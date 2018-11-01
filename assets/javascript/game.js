@@ -10,7 +10,7 @@ var questions = [{
   correctAnswer: 1
 }, {
   question: "In the movie Wayne’s World, what song were shoppers not permitted to play in the famous music store scene?",
-  choices: ["SMoke on the Water", "kazmir", "Stairway to Heaven", "Iron Man"],
+  choices: ["Smoke on the Water", "kazmir", "Stairway to Heaven", "Iron Man"],
   correctAnswer: 2
 }, {
   question: "In the Lynyrd Skynyrd song, Sweet Home Alabama, which of the following musicians is referenced?",
@@ -27,7 +27,7 @@ var questions = [{
 }, {
   question: "CSNY stands for:",
   choices: ["Cooper, Stevens, Nash & York", "Crosby, Stills, Nash & Young", "Crosby, Steeles, Nash & Young", "Croxall, Stills, Nicholas & Young"],
-  correctAnswer: 3
+  correctAnswer: 1
 }];
 
 var currentQuestion = 0;
@@ -43,9 +43,9 @@ $('.StartBtn').on("click", function() {
     startTimer();
     
     console.log(correct);
-    setTimeout(function(){ $(".quizContainer").hide(); }, 30000); 
+    setTimeout(function(){ $(".quizContainer").hide(); }, 60000); 
   
-    setTimeout(function(){ $(".resultContainer").show(); }, 30000);
+    setTimeout(function(){ $(".resultContainer").show(); }, 60000);
    
 });
 
@@ -53,11 +53,9 @@ $('.StartBtn').on("click", function() {
 $(document).ready(function () {
 
 
-  // Display the first question
   displayCurrentQuestion();
 
 
-  // On clicking next, display the next question
   $(this).find(".nextButton").on("click", function () {
       if (!quizOver) {
 
@@ -67,26 +65,23 @@ $(document).ready(function () {
               $(document).find(".quizMessage").text("Please select an answer");
               $(document).find(".quizMessage").show();
           } else {
-              // TODO: Remove any message -> not sure if this is efficient to call this each time....
               $(document).find(".quizMessage").hide();
 
               if (value == questions[currentQuestion].correctAnswer) {
                   correctAnswers++;
               }
 
-              currentQuestion++; // Since we have already displayed the first question on DOM ready
+              currentQuestion++; 
               if (currentQuestion < questions.length) {
                   displayCurrentQuestion();
               } else {
                   displayScore();
-                  //                    $(document).find(".nextButton").toggle();
-                  //                    $(document).find(".playAgainButton").toggle();
-                  // Change the text in the next button to ask if user wants to play again
+                 
                   $(document).find(".nextButton").text("Play Again?");
                   quizOver = true;
               }
           }
-      } else { // quiz is over and clicked the next button (which now displays 'Play Again?'
+      } else { 
           quizOver = false;
           $(document).find(".nextButton").text("Next Question");
           resetQuiz();
@@ -97,7 +92,7 @@ $(document).ready(function () {
 });
 
 
-// This displays the current question AND the choices
+
 function displayCurrentQuestion() {
 
   console.log("In display current Question");
@@ -107,10 +102,10 @@ function displayCurrentQuestion() {
   var choiceList = $(document).find(".quizContainer > .choiceList");
   var numChoices = questions[currentQuestion].choices.length;
 
-  // Set the questionClass text to the current question
   $(questionClass).text(question);
 
-  // Remove all current <li> elements (if any)
+
+
   $(choiceList).find("li").remove();
 
   var choice;
@@ -142,20 +137,6 @@ function hideScore() {
 var correct = 0;
 
 
-// $("#questions").hide();
-
-// $('.StartBtn').on("click", function() {
-//     $("#questions").show()
-//     startTimer();
-    
-//     console.log(correct);
-//     setTimeout(function(){ $("#questions").hide(); }, 30000);      
-    
-// });
-
-// collect ansers
-
-
 // startTimer
 function startTimer(){
         var time = new Date();
@@ -174,7 +155,7 @@ function startTimer(){
           $('#seconds').html(time.toShortString());
           setTimeout(function(){time.countDown();}, 1000);
         };
-        time.setSeconds(30);
+        time.setSeconds(59);
         setTimeout(function(){time.countDown();}, 1000);
         
        
@@ -183,8 +164,3 @@ function startTimer(){
      
 
 
-// for (var i = 0; i < questions.length; i++){
-//   var response = window.value(questions[i].prompt);
-//   if(response == questions[1].answer){
-//       score++;
-//   }
